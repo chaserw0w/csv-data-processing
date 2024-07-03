@@ -4,7 +4,6 @@ import com.taras.hacken.domain.Person;
 import com.taras.hacken.domain.enums.GenderType;
 import com.taras.hacken.repo.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,5 +32,9 @@ public class CsvService {
         } catch (IOException e) {
             log.error("Error occurred when trying to upload csv!"); //todo: more details about the error
         }
+    }
+
+    public List<Person> searchByName(String name) {
+        return personRepository.findByNameContaining(name);
     }
 }

@@ -16,8 +16,9 @@ public class CsvController {
     private CsvService csvService;
 
     @PostMapping("/upload-csv")
-    public ResponseEntity<String> uploadCsv(@RequestParam("file") MultipartFile file) {
-        csvService.uploadCsv(file);
+    public ResponseEntity<String> uploadCsv(@RequestParam("file") MultipartFile file,
+                                            @RequestParam("hasHeader") boolean hasHeader) {
+        csvService.uploadCsv(file, hasHeader);
         return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully;");
     }
 

@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -21,6 +23,6 @@ public class Person {
     private String lastName;
     private GenderType gender;
     private String email;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String countryOfBirth;
 }

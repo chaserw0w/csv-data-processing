@@ -21,7 +21,7 @@ public class CsvService {
 
     private PersonRepository personRepository;
 
-    public void uploadCsv(MultipartFile file, boolean hasHeader) {
+    public void uploadCsv(MultipartFile file, boolean hasHeader, String delimiter) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             String line;
@@ -30,7 +30,7 @@ public class CsvService {
                 reader.readLine();
             }
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
+                String[] data = line.split(delimiter);
                 Person person = new Person(
                         Long.parseLong(data[0]),
                         data[1],
@@ -44,7 +44,7 @@ public class CsvService {
             }
             personRepository.saveAll(personList);
         } catch (IOException e) {
-            log.error("Error occurred when trying to upload csv!" + "\n" + file);
+            log.error("Error occurred when trying to upload csv!" + "\n" + file + "|" + e);
         }
     }
 

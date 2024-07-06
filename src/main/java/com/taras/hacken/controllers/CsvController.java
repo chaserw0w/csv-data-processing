@@ -17,8 +17,9 @@ public class CsvController {
 
     @PostMapping("/upload-csv")
     public ResponseEntity<String> uploadCsv(@RequestParam("file") MultipartFile file,
-                                            @RequestParam("hasHeader") boolean hasHeader) {
-        csvService.uploadCsv(file, hasHeader);
+                                            @RequestParam("hasHeader") boolean hasHeader,
+                                            @RequestParam(name = "delimiter", defaultValue = ",") String delimiter) {
+        csvService.uploadCsv(file, hasHeader, delimiter);
         return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully;");
     }
 

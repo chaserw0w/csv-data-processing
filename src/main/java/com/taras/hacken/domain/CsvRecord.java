@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.util.Map;
 
-@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode

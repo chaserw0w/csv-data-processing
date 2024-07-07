@@ -31,4 +31,10 @@ public class CsvController {
         return ResponseEntity.ok(records);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<CsvRecord>> searchCsvData(@RequestParam String keyword) {
+        List<CsvRecord> results = csvService.searchCsvData(keyword);
+        return ResponseEntity.ok(results);
+    }
+
 }

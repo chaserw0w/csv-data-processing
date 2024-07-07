@@ -57,4 +57,8 @@ public class CsvService {
     public List<CsvRecord> getAllRecords() {
         return csvRecordRepository.findAll();
     }
+
+    public List<CsvRecord> searchCsvData(String keyword) {
+        return csvRecordRepository.search(keyword);
+    }
 }

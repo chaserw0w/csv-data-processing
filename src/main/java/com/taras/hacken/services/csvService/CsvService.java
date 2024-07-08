@@ -2,6 +2,7 @@ package com.taras.hacken.services.csvService;
 
 import com.taras.hacken.domain.CsvRecord;
 import com.taras.hacken.services.csvService.repo.CsvRecordRepository;
+import io.micrometer.core.instrument.Counter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class CsvService {
 
     private final CsvRecordRepository csvRecordRepository;
+    private final Counter csvUploadCounter;
 
     public void uploadCsv(MultipartFile file, boolean hasHeader, String delimiter) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))){
@@ -31,9 +33,10 @@ public class CsvService {
             while ((line = reader.readLine()) != null) {
                 CsvRecord record = getCsvRecord(delimiter, line, headers);
                 csvRecordRepository.save(record);
+                csvUploadCounter.increment();
             }
         } catch (IOException e) {
-            log.error("Error occurred when trying to parse csv file! File: " + '\n' + file);
+            log.error("Error occurred when trying to parse csv file! File: " + '\n' + file + "|e = " + e);
         }
     }
 
